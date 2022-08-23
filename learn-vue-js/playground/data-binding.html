@@ -14,6 +14,8 @@
        -->
       <p v-bind:id="uuid" v-bind:class="name">{{ num }}</p>
       <p>{{ doubleNum }}</p>
+      <div v-if="loading">Loading...</div>
+      <div v-else="loading">test user has been logged in</div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -25,6 +27,7 @@
           num: 10,
           uuid: "abc1234",
           name: "text-blue",
+          loading: true,
         },
         // 계산된 속성 => computed
         computed: {
