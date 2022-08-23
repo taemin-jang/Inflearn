@@ -8,7 +8,11 @@
   </head>
   <body>
     <div id="app">
-      <p>{{ num }}</p>
+      <!-- id에 uuid라는 데이터를 바인딩하겠다.
+        v-bind가 붙게되면 데이터에서 관리되는 특정 데이터에 값이 연결이 된다.
+      <p id="abc1234">{{ num }}</p> 이거와 같은 의미
+       -->
+      <p v-bind:id="uuid" v-bind:class="name">{{ num }}</p>
       <p>{{ doubleNum }}</p>
     </div>
 
@@ -19,6 +23,8 @@
         data: {
           str: "hi",
           num: 10,
+          uuid: "abc1234",
+          name: "text-blue",
         },
         // 계산된 속성 => computed
         computed: {
