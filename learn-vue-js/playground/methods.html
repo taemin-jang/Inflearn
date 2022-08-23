@@ -10,6 +10,8 @@
     <div id="app">
       <!-- <button v-on:click="메서드 이름">click me</button> -->
       <button v-on:click="LogText">click me</button>
+      <!-- event modifier ex) keyup.enter-->
+      <input type="text" v-on:keyup.enter="LogText" />
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
