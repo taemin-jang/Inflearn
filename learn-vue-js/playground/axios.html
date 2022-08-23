@@ -22,12 +22,16 @@
         },
         methods: {
           getData: function () {
+            // 여기서 this는 Vue를 가리킴
+            // 따라서 Vue를 가리키는 값을 vm에 저장하여 this처럼 사용할 수 있음
             var vm = this;
             // 10개의 유저 정보를 받아옴 (rest API)
             axios
               .get("https://jsonplaceholder.typicode.com/users")
               // promise에 대한 이해가 필요
               .then(function (response) {
+                // 비동기처리를 했을때 실행 컨테스트가 바뀌면서 this가 가리키는 객체도 바뀜
+                // this.users = response.data;
                 vm.users = response.data;
                 console.log(response.data);
               })
