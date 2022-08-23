@@ -14,8 +14,12 @@
        -->
       <p v-bind:id="uuid" v-bind:class="name">{{ num }}</p>
       <p>{{ doubleNum }}</p>
+      <!-- v-if는 false가 될 경우 Dom에서 완전히 지워버리고
+           v-show는 false가 될 경우 css style에서 display:none으로
+          육안상으로 보이지 않게하고 Dom으로는 남아있다. -->
       <div v-if="loading">Loading...</div>
       <div v-else="loading">test user has been logged in</div>
+      <div v-show="loading">Loading....</div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
