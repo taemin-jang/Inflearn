@@ -1,9 +1,16 @@
 <template>
   <div>
     <ul>
-      <li v-for="todoItem in todoItems" :key="todoItem" class="shadow">
-        {{ todoItem }}
-        <span class="removeBtn" v-on:click="removeTodo(todoItem)">
+      <li v-for="(todoItem, index) in todoItems" :key="index" class="shadow">
+        <i
+          class="fa-solid fa-check checkBtn"
+          :class="{ checkBtnCompleted: todoItem.completed }"
+          v-on:click="toggleComplete(todoItem, index)"
+        ></i>
+        <span v-bind:class="{ textCompleted: todoItem.completed }">{{
+          todoItem.item
+        }}</span>
+        <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
           <i class="fa-solid fa-trash-can"></i>
         </span>
       </li>
@@ -19,23 +26,31 @@ export default {
     };
   },
   methods: {
-    removeTodo(key) {
-      localStorage.removeItem(key);
-      this.todoItems.splice(this.todoItems.indexOf(key), 1);
+    removeTodo(todoItem, index) {
+      localStorage.removeItem(todoItem);
+      this.todoItems.splice(index, 1);
+    },
+    toggleComplete(todoItem, index) {
+      todoItem.completed = !todoItem.completed;
+      // localStorage에는 update 기능이 없어서 삭제 후 등록을 해줘야함
+      localStorage.removeItem(todoItem.item);
+      localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+      console.log(index);
     },
   },
   created() {
     if (localStorage.length > 0) {
       for (let i = 0; i < localStorage.length; i++) {
-        this.todoItems.push(localStorage.key(i));
+        this.todoItems.push(
+          JSON.parse(localStorage.getItem(localStorage.key(i)))
+        );
       }
-      console.log(this.todoItems);
     }
   },
 };
 </script>
 
-<style>
+<style scoped>
 ul {
   list-style-type: none;
   padding-left: 0px;
