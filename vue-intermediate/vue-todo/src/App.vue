@@ -2,7 +2,11 @@
   <div>
     <TodoHeader />
     <TodoInput v-on:addTodoItem="addOneItem" />
-    <TodoList v-bind:propsdata="todoItems" v-on:removeItem="removeOneItem" />
+    <TodoList
+      v-bind:propsdata="todoItems"
+      v-on:removeItem="removeOneItem"
+      v-on:toggleItem="toggleOneItem"
+    />
     <TodoFooter />
   </div>
 </template>
@@ -30,6 +34,15 @@ export default {
     removeOneItem(todoItem, index) {
       localStorage.removeItem(todoItem.item);
       this.todoItems.splice(index, 1);
+    },
+    toggleOneItem(index) {
+      this.todoItems[index].completed = !this.todoItems[index].completed;
+      // localStorage에는 update 기능이 없어서 삭제 후 등록을 해줘야함
+      localStorage.removeItem(this.todoItems[index].item);
+      localStorage.setItem(
+        this.todoItems[index].item,
+        JSON.stringify(this.todoItems[index])
+      );
     },
   },
   created() {

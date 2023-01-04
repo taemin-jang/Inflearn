@@ -5,7 +5,7 @@
         <i
           class="fa-solid fa-check checkBtn"
           :class="{ checkBtnCompleted: todoItem.completed }"
-          v-on:click="toggleComplete(todoItem, index)"
+          v-on:click="toggleComplete(index)"
         ></i>
         <span v-bind:class="{ textCompleted: todoItem.completed }">{{
           todoItem.item
@@ -25,12 +25,8 @@ export default {
     removeTodo(todoItem, index) {
       this.$emit("removeItem", todoItem, index);
     },
-    toggleComplete(todoItem, index) {
-      todoItem.completed = !todoItem.completed;
-      // localStorage에는 update 기능이 없어서 삭제 후 등록을 해줘야함
-      localStorage.removeItem(todoItem.item);
-      localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
-      console.log(index);
+    toggleComplete(index) {
+      this.$emit("toggleItem", index);
     },
   },
 };
