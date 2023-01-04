@@ -2,7 +2,7 @@
   <div>
     <TodoHeader />
     <TodoInput v-on:addTodoItem="addOneItem" />
-    <TodoList v-bind:propsdata="todoItems" />
+    <TodoList v-bind:propsdata="todoItems" v-on:removeItem="removeOneItem" />
     <TodoFooter />
   </div>
 </template>
@@ -26,6 +26,10 @@ export default {
       localStorage.setItem(todoItem, JSON.stringify(obj));
       // todoItems에 추가해줌으로써 새로고침하지 않고도 최신 데이터가 반영
       this.todoItems.push(obj);
+    },
+    removeOneItem(todoItem, index) {
+      localStorage.removeItem(todoItem.item);
+      this.todoItems.splice(index, 1);
     },
   },
   created() {
