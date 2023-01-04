@@ -1,7 +1,7 @@
 <template>
   <div>
     <TodoHeader />
-    <TodoInput />
+    <TodoInput v-on:addTodoItem="addOneItem" />
     <TodoList v-bind:propsdata="todoItems" />
     <TodoFooter />
   </div>
@@ -17,6 +17,16 @@ export default {
     return {
       todoItems: [],
     };
+  },
+  methods: {
+    addOneItem(todoItem) {
+      // 완료 했는지 상태 여부 JSON으로 저장
+      let obj = { completed: false, item: todoItem };
+      // 로컬스토리지에 저장
+      localStorage.setItem(todoItem, JSON.stringify(obj));
+      // todoItems에 추가해줌으로써 새로고침하지 않고도 최신 데이터가 반영
+      this.todoItems.push(obj);
+    },
   },
   created() {
     if (localStorage.length > 0) {

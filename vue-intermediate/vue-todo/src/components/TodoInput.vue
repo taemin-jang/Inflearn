@@ -18,10 +18,7 @@ export default {
     addTodo() {
       // todoItem이 없으면 안들어감
       if (this.newTodoItem !== "") {
-        // 완료 했는지 상태 여부 JSON으로 저장
-        let obj = { completed: false, item: this.newTodoItem };
-        // 로컬스토리지에 저장
-        localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
+        this.$emit("addTodoItem", this.newTodoItem);
         this.clearInput();
       }
     },
