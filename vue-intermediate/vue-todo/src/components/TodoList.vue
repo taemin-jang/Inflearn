@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul>
+    <transition-group name="list" tag="ul">
       <li v-for="(todoItem, index) in propsdata" :key="index" class="shadow">
         <i
           class="fa-solid fa-check checkBtn"
@@ -14,7 +14,7 @@
           <i class="fa-solid fa-trash-can"></i>
         </span>
       </li>
-    </ul>
+    </transition-group>
   </div>
 </template>
 
@@ -69,5 +69,17 @@ li {
 .textCompleted {
   text-decoration: line-through;
   color: b3adad;
+}
+
+/* ListItem 트렌지션 효과 */
+.list-enter-active,
+.list-leave-active {
+  transition: all 1s;
+}
+
+.list-enter,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
 }
 </style>
